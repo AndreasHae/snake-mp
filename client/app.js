@@ -1,26 +1,17 @@
 import { Application, utils, Sprite, loader } from "pixi.js"
+import { loadTextures } from "./textures"
 
 const app = new Application({
-    transparent: true
+    transparent: true,
+    antialias: true
 })
 document.body.appendChild(app.view)
 
-loader
-    .add([
-        "img/body.svg",
-        "img/eyes.svg"
-    ])
-    .load(setup)
-
-function setup() {
-    const body = new Sprite(
-        loader.resources["img/body.svg"].texture
-    )
+loadTextures().then((textures) => {
+    const body = new Sprite(textures.body)
     body.tint = "0x123456"
-    const eyes = new Sprite(
-        loader.resources["img/eyes.svg"].texture
-    )
+    const eyes = new Sprite(textures.eyes)
     body.addChild(eyes)
-    console.log("hello")
+
     app.stage.addChild(body)
-}
+})
