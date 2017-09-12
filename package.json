@@ -1,0 +1,16 @@
+{
+  "name": "snake-mp",
+  "version": "0.0.1",
+  "description": "A multiplayer version of the game Snake",
+  "scripts": {
+    "watch": "webpack --watch --config webpack.config.js"
+  },
+  "author": "Andreas Hässler <andreas.haessler@outlook.at>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "pixi.js": "^4.5.5"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.6"
+  }
+}
