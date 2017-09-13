@@ -1,4 +1,4 @@
-import { Application, utils, Sprite, loader } from "pixi.js"
+import { Application, loader } from "pixi.js"
 import { loadTextures } from "./textures"
 import Snake from "./snake"
 import createControls from "./input"
@@ -9,26 +9,23 @@ const app = new Application({
     transparent: true,
     antialias: true
 })
+
 document.body.appendChild(app.view)
 
 loadTextures().then((textures) => {
     const color = Math.random() * 0xFFFFFF
-    const snake = new Snake(3, textures, color)
-    snake.sprites.base.y = 100
-    snake.sprites.base.x = 100
-    app.stage.addChild(snake.sprites.base)
+    const snake = new Snake(5, textures, color)
+    snake.y = 100
+    snake.x = 100
+    app.stage.addChild(snake)
 
     document.addEventListener("keydown", createControls(snake))
 
-    setInterval(() => {
-        requestAnimationFrame(gameLoop.bind(null, snake))
-    }, 0)
+    app.ticker.add(dt => {
+        snake.update(dt)
+        app.render()
+    })
 })
-
-function gameLoop(snake) {
-    snake.update()
-    app.render()
-}
 
 window.onresize = () => {
     app.renderer.resize(window.innerWidth, window.innerHeight)

@@ -1,71 +1,41 @@
 import { Sprite } from "pixi.js"
-import Directions from "./directions"
+import SnakeHead from "./snakehead"
+import SnakeBody from "./snakebody"
 
-export default class Snake {
+export default class Snake extends Sprite {
     constructor(length, textures, baseColor) {
-        this.textures = textures
+        super()
 
-        const base = new Sprite()
+        this.velocity = 2
 
-        const head = new Sprite(textures.body)
-        head.tint = baseColor
-        head.anchor.set(0.5, 0.5)
+        this._textures = textures
 
-        const eyes = new Sprite(textures.eyes)
-        eyes.anchor.set(0.5, 0.5)
-        head.addChild(eyes)
+        this.head = new SnakeHead(this._textures.body, baseColor, this._textures.eyes)
+        this.head.velocity = this.velocity
+        this.addChild(this.head)
 
-        base.addChild(head)
-
-        this.sprites = {
-            base,
-            head,
-            body: []
-        }
-
-        for (let i = 0; i < length; i++) {
+        for (let i = 1; i < length; i++) {
             this.addBody()
         }
     }
 
     addBody() {
-        let color
-        if (this.sprites.body.length === 0) {
-            color = this.sprites.head.tint
-        } else {
-            color = this.sprites.body[this.sprites.body.length - 1].tint
-        }
+        let color = this.children[0].tint
         color = darken(color, 8)
 
-        const bodyPart = new Sprite(this.textures.body)
-        bodyPart.tint = color
-        bodyPart.anchor.set(0.5, 0.5)
-        bodyPart.y = 0.5 * (this.sprites.body.length + 1) * bodyPart.height
-        this.sprites.base.addChildAt(bodyPart, 0)
-        this.sprites.body.push(bodyPart)
+        const bodyPart = new SnakeBody(this._textures.body, color)
+        bodyPart.y = 0.5 * (this.children.length) * bodyPart.height
+        bodyPart.velocity = this.velocity
+
+        this.addChildAt(bodyPart, 0)
     }
     
-    setDirection(direction) {
-        this.sprites.head.rotation = direction
+    go(direction) {
+        this.head.go(direction)
     }
 
-    update() {
-        const head = this.sprites.head
-
-        switch (this.sprites.head.rotation) {
-            case Directions.up:
-                head.y -= 1
-                break
-            case Directions.down:
-                head.y += 1
-                break
-            case Directions.left:
-                head.x -= 1
-                break
-            case Directions.right:
-                head.x += 1
-                break
-        }
+    update(dt) {
+        this.children.forEach(child => child.update(dt))
     }
 }
 
