@@ -1,4 +1,5 @@
 import { Sprite } from "pixi.js"
+import Directions from "./directions"
 
 export default class Snake {
     constructor(length, textures, baseColor) {
@@ -42,6 +43,29 @@ export default class Snake {
         bodyPart.y = 0.5 * (this.sprites.body.length + 1) * bodyPart.height
         this.sprites.base.addChildAt(bodyPart, 0)
         this.sprites.body.push(bodyPart)
+    }
+    
+    setDirection(direction) {
+        this.sprites.head.rotation = direction
+    }
+
+    update() {
+        const head = this.sprites.head
+
+        switch (this.sprites.head.rotation) {
+            case Directions.up:
+                head.y -= 1
+                break
+            case Directions.down:
+                head.y += 1
+                break
+            case Directions.left:
+                head.x -= 1
+                break
+            case Directions.right:
+                head.x += 1
+                break
+        }
     }
 }
 
