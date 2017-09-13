@@ -6,7 +6,7 @@ export default class Snake extends Sprite {
     constructor(length, textures, baseColor) {
         super()
 
-        this.velocity = 2
+        this.velocity = 200
 
         this._textures = textures
 
@@ -31,7 +31,12 @@ export default class Snake extends Sprite {
     }
     
     go(direction) {
-        this.head.go(direction)
+        let reversedIndex = 0
+        for (let i = this.children.length - 1; i >= 0; i--) {            
+            const secondsUntilChange = reversedIndex * (this.children[i].width / 2) / this.velocity
+            setTimeout(() => this.children[i].go(direction), secondsUntilChange * 1000)
+            reversedIndex++
+        }
     }
 
     update(dt) {

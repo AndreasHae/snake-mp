@@ -4,16 +4,16 @@ export default function createControls(snake) {
     return event => {
         switch (event.key) {
             case "ArrowRight":
-                snake.setDirection(Directions.right)
+                snake.go(Directions.right)
                 break
             case "ArrowLeft":
-                snake.setDirection(Directions.left)
+                snake.go(Directions.left)
                 break
             case "ArrowUp":
-                snake.setDirection(Directions.up)
+                snake.go(Directions.up)
                 break
             case "ArrowDown":
-                snake.setDirection(Directions.down)
+                snake.go(Directions.down)
                 break
         }
     }

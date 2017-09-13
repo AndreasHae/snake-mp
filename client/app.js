@@ -21,7 +21,9 @@ loadTextures().then((textures) => {
 
     document.addEventListener("keydown", createControls(snake))
 
-    app.ticker.add(dt => {
+    app.ticker.add(() => {
+        const dt = app.ticker.elapsedMS / 1000
+
         snake.update(dt)
         app.render()
     })
