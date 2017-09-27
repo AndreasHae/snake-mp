@@ -1,5 +1,6 @@
 import { Application, loader } from "pixi.js"
 import { loadTextures } from "./textures"
+import Field from "./field"
 import Snake from "./snake"
 import createControls from "./input"
 
@@ -13,7 +14,7 @@ const app = new Application({
 document.body.appendChild(app.view)
 
 loadTextures().then((textures) => {
-    const color = Math.random() * 0xFFFFFF
+    /*const color = Math.random() * 0xFFFFFF
     const snake = new Snake(5, textures, color)
     snake.y = 100
     snake.x = 100
@@ -26,7 +27,10 @@ loadTextures().then((textures) => {
 
         snake.update(dt)
         app.render()
-    })
+    })*/
+
+    const field = new Field(16, 8, textures.ground)
+    app.stage.addChild(field)
 })
 
 window.onresize = () => {

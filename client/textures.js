@@ -8,11 +8,13 @@ export function loadTextures() {
             loader
                 .add([
                     "img/body.svg",
-                    "img/eyes.svg"
+                    "img/eyes.svg",
+                    "img/ground.svg"
                 ])
                 .load(() => {
                     cache.body = loader.resources["img/body.svg"].texture
                     cache.eyes = loader.resources["img/eyes.svg"].texture
+                    cache.ground = loader.resources["img/ground.svg"].texture
 
                     resolve(cache)
                 })
