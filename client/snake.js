@@ -3,14 +3,17 @@ import SnakeHead from "./snakehead"
 import SnakeBody from "./snakebody"
 
 export default class Snake extends Sprite {
-    constructor(length, textures, baseColor) {
+    constructor(length, bodyTexture, eyeTexture, baseColor) {
         super()
+
+        this.x = 50
+        this.y = 50
 
         this.velocity = 200
 
-        this._textures = textures
-
-        this.head = new SnakeHead(this._textures.body, baseColor, this._textures.eyes)
+        this._bodyTexture = bodyTexture
+        
+        this.head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
         this.head.velocity = this.velocity
         this.addChild(this.head)
 
@@ -23,7 +26,7 @@ export default class Snake extends Sprite {
         let color = this.children[0].tint
         color = darken(color, 8)
 
-        const bodyPart = new SnakeBody(this._textures.body, color)
+        const bodyPart = new SnakeBody(this._bodyTexture, color)
         bodyPart.y = 0.5 * (this.children.length) * bodyPart.height
         bodyPart.velocity = this.velocity
 

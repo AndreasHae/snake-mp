@@ -10,7 +10,7 @@ class SnakeBody extends Sprite {
     }
 
     go(direction) {
-        this.rotation = direction
+        this._nextDirection = direction
     }
 
     update(dt) {
@@ -28,6 +28,10 @@ class SnakeBody extends Sprite {
                 this.x += this.velocity * dt
                 break
         }
+    }
+
+    _onCellTraversed() {
+        this.direction = this._nextDirection
     }
 }
 

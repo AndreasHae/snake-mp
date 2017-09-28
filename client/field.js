@@ -5,7 +5,7 @@ class Field extends Sprite {
     constructor(width, height, groundTexture) {
         super()
 
-        this.cells = new CustomFixed2DArray(width, height, () => new Ground(groundTexture))
+        this.cells = new CustomFixed2DArray(width, height, () => Sprite.from(groundTexture))
         this.cells.forEach((cell, coords) => {
             cell.x = coords.x * cell.width
             cell.y = coords.y * cell.height
@@ -23,12 +23,6 @@ class CustomFixed2DArray extends Fixed2DArray {
         this.forEach((val, coords) => {
             this.set(coords.x, coords.y, valueGenerator(/*coords.x, coords.y*/)) // parameters would be cool, but are not needed currently
         })
-    }
-}
-
-class Ground extends Sprite {
-    constructor(texture) {
-        super(texture)
     }
 }
 
