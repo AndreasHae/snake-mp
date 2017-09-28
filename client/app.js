@@ -2,7 +2,7 @@ import { Application, loader } from "pixi.js"
 import Field from "./field"
 import Snake from "./snake"
 import SnakeBody from "./snakebody"
-import createControls from "./input"
+import registerControls from "./input"
 
 const game = new Application({
     width: window.innerWidth,
@@ -29,17 +29,17 @@ function main(resources) {
     game.stage.addChild(field)
 
     const color = Math.random() * 0xFFFFFF
-    const snake = new Snake(3, resources.body.texture, resources.eyes.texture, color)
+    const snake = new Snake(2, 2, resources.body.texture, resources.eyes.texture, color, 3)
     game.stage.addChild(snake)
 
-    document.addEventListener("keydown", createControls(snake))
+    registerControls(snake)
 
-    /*app.ticker.add(() => {
-        const dt = app.ticker.elapsedMS / 1000
+    game.ticker.add(() => {
+        const dt = game.ticker.elapsedMS / 1000
 
-        snake.update(dt)
-        app.render()
-    })*/
+        //snake.update(dt)
+        game.render()
+    })
 }
 
 window.onresize = () => {

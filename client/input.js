@@ -1,7 +1,7 @@
 import Directions from "./directions"
 
-export default function createControls(snake) {
-    return event => {
+function registerControls(snake) {
+    document.addEventListener("keydown", event => {
         switch (event.key) {
             case "ArrowRight":
                 snake.go(Directions.right)
@@ -16,5 +16,7 @@ export default function createControls(snake) {
                 snake.go(Directions.down)
                 break
         }
-    }
+    })
 }
+
+export default registerControls

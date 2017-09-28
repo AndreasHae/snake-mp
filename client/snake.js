@@ -3,11 +3,11 @@ import SnakeHead from "./snakehead"
 import SnakeBody from "./snakebody"
 
 export default class Snake extends Sprite {
-    constructor(length, bodyTexture, eyeTexture, baseColor) {
+    constructor(x, y, bodyTexture, eyeTexture, baseColor, length) {
         super()
 
-        this.x = 50
-        this.y = 50
+        this.x = 50 + bodyTexture.height * x
+        this.y = 50 + bodyTexture.width * y
 
         this.velocity = 200
 
@@ -34,12 +34,15 @@ export default class Snake extends Sprite {
     }
     
     go(direction) {
-        let reversedIndex = 0
+        for (let i = 0; i < this.children.length; i++) {
+            this.children[i].go(direction)
+        }
+        /*let reversedIndex = 0
         for (let i = this.children.length - 1; i >= 0; i--) {            
             const secondsUntilChange = reversedIndex * (this.children[i].width / 2) / this.velocity
             setTimeout(() => this.children[i].go(direction), secondsUntilChange * 1000)
             reversedIndex++
-        }
+        }*/
     }
 
     update(dt) {
