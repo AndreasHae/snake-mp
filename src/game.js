@@ -3,7 +3,7 @@ import { directions } from "./directions"
 import Field from "./field"
 import Snake from "./snake"
 import SnakeBody from "./snakebody"
-import registerControls from "./input"
+import input from "./input"
 
 class Game extends Application {
     constructor() {
@@ -28,7 +28,7 @@ class Game extends Application {
     
         const color = Math.random() * 0xFFFFFF
         const snake = new Snake(2, 2, resources.body.texture, resources.eyes.texture, color, 3)
-        registerControls(snake)
+
         this.stage.addChild(snake)
         this.snake = snake
     
@@ -37,6 +37,20 @@ class Game extends Application {
 
     main() {
         const dt = this.ticker.elapsedMS / 1000
+        console.log(input)
+
+        if (input.up) {
+            this.snake.go(directions.up)
+        }
+        if (input.down) {
+            this.snake.go(directions.down)
+        }
+        if (input.left) {
+            this.snake.go(directions.left)
+        }
+        if (input.right) {
+            this.snake.go(directions.right)
+        }
 
         this.snake.update(dt)
         this.render()
