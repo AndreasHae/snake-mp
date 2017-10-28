@@ -1,4 +1,4 @@
-import { Application, loader } from "pixi.js"
+import { Application } from "pixi.js"
 import Field from "./field"
 import Snake from "./snake"
 import SnakeBody from "./snakebody"
@@ -13,19 +13,21 @@ const game = new Application({
 
 document.body.appendChild(game.view)
 
-loader
+game.loader
     .add("body", "img/body.svg")
     .add("eyes", "img/eyes.svg")
     .add("ground", "img/ground.svg")
-    .on("progress", (loader) => drawProgressBar(loader.progress))
-    .load((loader, resources) => main(resources))
+//    .on("progress", (loader) => drawProgressBar(loader.progress))
+    .load(main)
 
-function drawProgressBar(progress) {
+/*function drawProgressBar(progress) {
     // TODO
-}
+}*/
 
-function main(resources) {
-    const field = new Field(16, 8, resources.ground.texture)
+function main() {
+    const resources = game.loader.resources
+
+    const field = new Field(8, 8, resources.ground.texture)
     game.stage.addChild(field)
 
     const color = Math.random() * 0xFFFFFF
@@ -37,7 +39,7 @@ function main(resources) {
     game.ticker.add(() => {
         const dt = game.ticker.elapsedMS / 1000
 
-        //snake.update(dt)
+        snake.update(dt)
         game.render()
     })
 }
