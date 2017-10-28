@@ -1,28 +1,18 @@
 import { Sprite } from 'pixi.js'
-import Fixed2DArray from 'fixed-2d-array'
 
 class Field extends Sprite {
-    constructor(width, height, groundTexture) {
+    constructor(height, width, cellTexture) {
         super()
 
-        this.cells = new CustomFixed2DArray(width, height, () => Sprite.from(groundTexture))
-        this.cells.forEach((cell, coords) => {
-            cell.x = coords.x * cell.width
-            cell.y = coords.y * cell.height
-            this.addChild(cell)
-        })
-    }
-}
+        for (let row = 0; row < height; row++) {
+            for (let col = 0; col < width; col++) {
+                const cell = Sprite.from(cellTexture)
+                cell.x = col * cell.width
+                cell.y = row * cell.height
 
-class CustomFixed2DArray extends Fixed2DArray {
-    // TODO: contribute this to fixed-2d-array
-
-    constructor(rows, cols, valueGenerator) {
-        super(rows, cols, null)
-
-        this.forEach((val, coords) => {
-            this.set(coords.x, coords.y, valueGenerator(/*coords.x, coords.y*/)) // parameters would be cool, but are not needed currently
-        })
+                this.addChild(cell)
+            }
+        }
     }
 }
 
