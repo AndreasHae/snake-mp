@@ -1,22 +1,28 @@
+import { opposites } from "./directions"
 import { Sprite } from "pixi.js"
 import SnakeHead from "./snakehead"
 import SnakeBody from "./snakebody"
 
-export default class Snake extends Sprite {
+class Snake extends Sprite {
     constructor(x, y, bodyTexture, eyeTexture, baseColor, length) {
         super()
 
-        this.x = 50 + bodyTexture.height * x
-        this.y = 50 + bodyTexture.width * y
+        // convert x and y from "cells" to pixel
+        // add 50% of texture size to get the middle
+        this.x = 1.5 * bodyTexture.height * x
+        this.y = 1.5 * bodyTexture.width * y
 
         this.velocity = 200
+        this.currentDirection = 0
 
         this._bodyTexture = bodyTexture
         
+        // add head
         this.head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
         this.head.velocity = this.velocity
         this.addChild(this.head)
 
+        // add children
         for (let i = 1; i < length; i++) {
             this.addBody()
         }
@@ -27,22 +33,23 @@ export default class Snake extends Sprite {
         color = darken(color, 8)
 
         const bodyPart = new SnakeBody(this._bodyTexture, color)
-        bodyPart.y = 0.5 * (this.children.length) * bodyPart.height
+        bodyPart.y = 0.5 * this.children.length * bodyPart.height
         bodyPart.velocity = this.velocity
 
         this.addChildAt(bodyPart, 0)
     }
     
     go(direction) {
-        for (let i = 0; i < this.children.length; i++) {
-            this.children[i].go(direction)
+        if (direction !== opposites[this.currentDirection] && direction !== this.currentDirection) {
+            this.children.forEach(body => body.addTurn(
+                this.head.x,
+                this.head.y,
+                direction
+            ))
+    
+            this.currentDirection = direction
         }
-        /*let reversedIndex = 0
-        for (let i = this.children.length - 1; i >= 0; i--) {            
-            const secondsUntilChange = reversedIndex * (this.children[i].width / 2) / this.velocity
-            setTimeout(() => this.children[i].go(direction), secondsUntilChange * 1000)
-            reversedIndex++
-        }*/
+
     }
 
     update(dt) {
@@ -68,3 +75,5 @@ function darken(color, darkness) {
 
     return (r << 16) | (g << 8) | b;
 }
+
+export default Snake

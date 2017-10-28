@@ -25,34 +25,31 @@ class Game extends Application {
     init(resources) {
         const field = new Field(8, 8, resources.ground.texture)
         this.stage.addChild(field)
-    
+
         const color = Math.random() * 0xFFFFFF
         const snake = new Snake(2, 2, resources.body.texture, resources.eyes.texture, color, 3)
 
         this.stage.addChild(snake)
         this.snake = snake
-    
+
         this.main()
     }
 
     main() {
         const dt = this.ticker.elapsedMS / 1000
-        console.log(input)
 
         if (input.up) {
             this.snake.go(directions.up)
-        }
-        if (input.down) {
+        } else if (input.down) {
             this.snake.go(directions.down)
-        }
-        if (input.left) {
+        } else if (input.left) {
             this.snake.go(directions.left)
-        }
-        if (input.right) {
+        } else if (input.right) {
             this.snake.go(directions.right)
         }
 
         this.snake.update(dt)
+        console.log(this.snake.children[1]._turns)
         this.render()
 
         requestAnimationFrame(this.main.bind(this))
