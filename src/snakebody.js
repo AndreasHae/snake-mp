@@ -1,11 +1,11 @@
-import { Sprite } from "pixi.js"
+import Circle from './circle'
 import { directions } from "./directions"
 
-class SnakeBody extends Sprite {
+class SnakeBody extends Circle {
     constructor(texture, color) {
         super(texture)
+        
         this.tint = color
-        this.anchor.set(0.5, 0.5)
         this.velocity = 2
         this._turns = []
     }

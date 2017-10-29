@@ -17,8 +17,8 @@ class Snake extends Sprite {
 
         // convert x and y from "cells" to pixel
         // add 50% of texture size to get the middle
-        head.x = 1.5 * bodyTexture.height * x
-        head.y = 1.5 * bodyTexture.width * y
+        head.x = bodyTexture.height * x + 50
+        head.y = bodyTexture.width * y + 50
 
         head.velocity = this.velocity
 

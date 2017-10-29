@@ -2,7 +2,8 @@ import { Application } from "pixi.js"
 import { directions } from "./directions"
 import Field from "./field"
 import Snake from "./snake"
-import SnakeBody from "./snakebody"
+import Fruit from './fruit'
+
 import input from "./input"
 
 class Game extends Application {
@@ -18,6 +19,7 @@ class Game extends Application {
             .add("body", "img/body.svg")
             .add("eyes", "img/eyes.svg")
             .add("ground", "img/ground.svg")
+            .add("fruit", "img/fruit.svg")
 //          .on("progress", (loader) => drawProgressBar(loader.progress))
             .load((loader, resources) => this.init(resources))
     }
@@ -32,6 +34,9 @@ class Game extends Application {
 
         this.stage.addChild(snake)
         this.snake = snake
+
+        this.fruit = new Fruit(5, 5, resources.fruit.texture)
+        this.stage.addChild(this.fruit)
 
         this.main()
     }
@@ -52,8 +57,12 @@ class Game extends Application {
         this.snake.update(dt)
 
         if (! this.field.encloses(this.snake.head)) {
-            console.log(this.snake.head.getBounds().x)
             this.snake.die()
+        }
+
+        if (this.fruit && this.snake.head.collidesWithCircle(this.fruit)) {
+            this.fruit.destroy()
+            this.fruit = null
         }
 
         this.render()
