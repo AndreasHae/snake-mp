@@ -25,6 +25,7 @@ class Game extends Application {
     init(resources) {
         const field = new Field(8, 8, resources.ground.texture)
         this.stage.addChild(field)
+        this.field = field
 
         const color = Math.random() * 0xFFFFFF
         const snake = new Snake(2, 2, resources.body.texture, resources.eyes.texture, color, 3)
@@ -49,7 +50,12 @@ class Game extends Application {
         }
 
         this.snake.update(dt)
-        console.log(this.snake.children[1]._turns)
+
+        if (! this.field.encloses(this.snake.head)) {
+            console.log(this.snake.head.getBounds().x)
+            this.snake.die()
+        }
+
         this.render()
 
         requestAnimationFrame(this.main.bind(this))

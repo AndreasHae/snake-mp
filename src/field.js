@@ -4,6 +4,9 @@ class Field extends Sprite {
     constructor(height, width, cellTexture) {
         super()
 
+        this.totalHeight = height * cellTexture.height
+        this.totalWidth = width * cellTexture.width
+
         for (let row = 0; row < height; row++) {
             for (let col = 0; col < width; col++) {
                 const cell = Sprite.from(cellTexture)
@@ -13,6 +16,15 @@ class Field extends Sprite {
                 this.addChild(cell)
             }
         }
+    }
+
+    encloses(sprite) {
+        const spriteBounds = sprite.getBounds()
+
+        return spriteBounds.top >= 0
+            && spriteBounds.bottom <= this.totalHeight
+            && spriteBounds.left >= 0
+            && spriteBounds.right <= this.totalWidth
     }
 }
 

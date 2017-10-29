@@ -7,20 +7,23 @@ class Snake extends Sprite {
     constructor(x, y, bodyTexture, eyeTexture, baseColor, length) {
         super()
 
-        // convert x and y from "cells" to pixel
-        // add 50% of texture size to get the middle
-        this.x = 1.5 * bodyTexture.height * x
-        this.y = 1.5 * bodyTexture.width * y
-
+        this.alive = true
         this.velocity = 200
         this.currentDirection = 0
-
         this._bodyTexture = bodyTexture
         
         // add head
-        this.head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
-        this.head.velocity = this.velocity
-        this.addChild(this.head)
+        const head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
+
+        // convert x and y from "cells" to pixel
+        // add 50% of texture size to get the middle
+        head.x = 1.5 * bodyTexture.height * x
+        head.y = 1.5 * bodyTexture.width * y
+
+        head.velocity = this.velocity
+
+        this.addChild(head)
+        this.head = head
 
         // add children
         for (let i = 1; i < length; i++) {
@@ -33,7 +36,10 @@ class Snake extends Sprite {
         color = darken(color, 8)
 
         const bodyPart = new SnakeBody(this._bodyTexture, color)
-        bodyPart.y = 0.5 * this.children.length * bodyPart.height
+
+        bodyPart.x = this.head.x
+        bodyPart.y = this.head.y + 0.5 * this.children.length * bodyPart.height
+        
         bodyPart.velocity = this.velocity
 
         this.addChildAt(bodyPart, 0)
@@ -53,7 +59,13 @@ class Snake extends Sprite {
     }
 
     update(dt) {
-        this.children.forEach(child => child.update(dt))
+        if (this.alive) {
+            this.children.forEach(child => child.update(dt))
+        }
+    }
+
+    die() {
+        this.alive = false
     }
 }
 
