@@ -1,5 +1,5 @@
-import { Sprite } from "pixi.js"
-import SnakeBody from "./snakebody"
+import { Sprite } from 'pixi.js'
+import SnakeBody from './snakebody'
 
 class SnakeHead extends SnakeBody {
     constructor(bodyTexture, color, eyesTexture) {

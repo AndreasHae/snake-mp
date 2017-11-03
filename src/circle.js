@@ -1,4 +1,4 @@
-import { Sprite, Point } from 'pixi.js'
+import { Sprite } from 'pixi.js'
 
 class Circle extends Sprite {
     constructor(texture) {

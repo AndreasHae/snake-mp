@@ -1,5 +1,5 @@
 import Circle from './circle'
-import { directions } from "./directions"
+import { directions } from './directions'
 
 class SnakeBody extends Circle {
     constructor(texture, color) {
@@ -13,7 +13,7 @@ class SnakeBody extends Circle {
     addTurn(x, y, direction) {
         this._turns.push({
             x, y,
-            direction
+            direction,
         })
     }
 
@@ -32,18 +32,18 @@ class SnakeBody extends Circle {
         const deltaPosition = this.velocity * dt
 
         switch (this.rotation) {
-            case directions.up:
-                this.y -= deltaPosition
-                break
-            case directions.down:
-                this.y += deltaPosition
-                break
-            case directions.left:
-                this.x -= deltaPosition
-                break
-            case directions.right:
-                this.x += deltaPosition
-                break
+        case directions.up:
+            this.y -= deltaPosition
+            break
+        case directions.down:
+            this.y += deltaPosition
+            break
+        case directions.left:
+            this.x -= deltaPosition
+            break
+        case directions.right:
+            this.x += deltaPosition
+            break
         }
     }
 }

@@ -1,7 +1,7 @@
-import { opposites } from "./directions"
-import { Sprite } from "pixi.js"
-import SnakeHead from "./snakehead"
-import SnakeBody from "./snakebody"
+import { opposites } from './directions'
+import { Sprite } from 'pixi.js'
+import SnakeHead from './snakehead'
+import SnakeBody from './snakebody'
 
 class Snake extends Sprite {
     constructor(x, y, bodyTexture, eyeTexture, baseColor, length) {
@@ -15,7 +15,7 @@ class Snake extends Sprite {
         // add head
         const head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
 
-        // convert x and y from "cells" to pixel
+        // convert x and y from cells to pixel
         // add 50% of texture size to get the middle
         head.x = bodyTexture.height * x + 50
         head.y = bodyTexture.width * y + 50
@@ -85,7 +85,7 @@ function darken(color, darkness) {
     g = subtractOrZero(g, darkness)
     b = subtractOrZero(b, darkness)
 
-    return (r << 16) | (g << 8) | b;
+    return (r << 16) | (g << 8) | b
 }
 
 export default Snake

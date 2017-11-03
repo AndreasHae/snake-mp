@@ -1,10 +1,10 @@
-const path = require("path")
+const path = require('path')
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: './src/index.js',
     output: {
-        filename: "game.js",
-        path: path.resolve(__dirname, "dist")
+        filename: 'game.js',
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
@@ -14,11 +14,19 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
-                    }
-                }
-            }
-        ]
+                        presets: ['env'],
+                    },
+                },
+            },
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                loader: 'eslint-loader',
+                options: {
+                    emitWarning: true,
+                },
+            },
+        ],
     },
-    devtool: "inline-source-map",
+    devtool: 'inline-source-map',
 }

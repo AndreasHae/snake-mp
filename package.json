@@ -4,6 +4,7 @@
   "description": "A multiplayer version of the game Snake",
   "main": "src/index.js",
   "scripts": {
+    "lint:js": "eslint src/ webpack.*.js --cache",
     "start": "webpack-dev-server --open --content-base dist",
     "build": "webpack --progress -p",
     "watch": "webpack --progress --watch"
@@ -17,6 +18,8 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "eslint": "^4.10.0",
+    "eslint-loader": "^1.9.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3"
   }

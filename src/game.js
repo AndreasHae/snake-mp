@@ -1,10 +1,10 @@
-import { Application } from "pixi.js"
-import { directions } from "./directions"
-import Field from "./field"
-import Snake from "./snake"
+import { Application } from 'pixi.js'
+import { directions } from './directions'
+import Field from './field'
+import Snake from './snake'
 import Fruit from './fruit'
 
-import input from "./input"
+import input from './input'
 
 class Game extends Application {
     constructor() {
@@ -12,15 +12,15 @@ class Game extends Application {
             width: window.innerWidth,
             height: window.innerHeight,
             transparent: true,
-            antialias: true
+            antialias: true,
         })
 
         this.loader
-            .add("body", "img/body.svg")
-            .add("eyes", "img/eyes.svg")
-            .add("ground", "img/ground.svg")
-            .add("fruit", "img/fruit.svg")
-//          .on("progress", (loader) => drawProgressBar(loader.progress))
+            .add('body', 'img/body.svg')
+            .add('eyes', 'img/eyes.svg')
+            .add('ground', 'img/ground.svg')
+            .add('fruit', 'img/fruit.svg')
+            //.on('progress', (loader) => drawProgressBar(loader.progress))
             .load((loader, resources) => this.init(resources))
     }
 
