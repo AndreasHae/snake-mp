@@ -1,4 +1,4 @@
-import { opposites } from './directions'
+import { opposites, directions } from './directions'
 import { Sprite } from 'pixi.js'
 import SnakeHead from './snakehead'
 import SnakeBody from './snakebody'
@@ -11,7 +11,7 @@ class Snake extends Sprite {
         this.velocity = 200
         this.currentDirection = 0
         this._bodyTexture = bodyTexture
-        
+
         // add head
         const head = new SnakeHead(bodyTexture, baseColor, eyeTexture)
 
@@ -32,19 +32,33 @@ class Snake extends Sprite {
     }
 
     addBody() {
-        let color = this.children[0].tint
-        color = darken(color, 8)
+        const lastBody = this.children[0]
+        const color = darken(lastBody.tint, 8)
 
         const bodyPart = new SnakeBody(this._bodyTexture, color)
-
-        bodyPart.x = this.head.x
-        bodyPart.y = this.head.y + 0.5 * this.children.length * bodyPart.height
-        
+        bodyPart.rotation = lastBody.rotation
+        bodyPart._turns = Array.from(lastBody._turns)
         bodyPart.velocity = this.velocity
+
+        if (lastBody.rotation == directions.up) {
+            bodyPart.x = lastBody.x
+            bodyPart.y = lastBody.y + 0.5 * bodyPart.height
+        } else if (lastBody.rotation == directions.down) {
+            bodyPart.x = lastBody.x
+            bodyPart.y = lastBody.y - 0.5 * bodyPart.height
+        } else if (lastBody.rotation == directions.left) {
+            bodyPart.x = lastBody.x + 0.5 * bodyPart.height
+            bodyPart.y = lastBody.y
+        } else if (lastBody.rotation == directions.right) {
+            bodyPart.x = lastBody.x - 0.5 * bodyPart.height
+            bodyPart.y = lastBody.y
+        } else {
+            console.error('Snake body is moving in impossible direction') // eslint-disable-line no-console
+        }
 
         this.addChildAt(bodyPart, 0)
     }
-    
+
     go(direction) {
         if (direction !== opposites[this.currentDirection] && direction !== this.currentDirection) {
             this.children.forEach(body => body.addTurn(
@@ -52,7 +66,7 @@ class Snake extends Sprite {
                 this.head.y,
                 direction
             ))
-    
+
             this.currentDirection = direction
         }
 
@@ -75,10 +89,8 @@ function darken(color, darkness) {
     let b = color & 255
 
     function subtractOrZero(a, b) {
-        if ((a - b) < 0) {
-            return 0
-        }
-        return a - b
+        const result = a - b
+        return result > 0 ? result : 0
     }
 
     r = subtractOrZero(r, darkness)

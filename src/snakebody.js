@@ -4,7 +4,7 @@ import { directions } from './directions'
 class SnakeBody extends Circle {
     constructor(texture, color) {
         super(texture)
-        
+
         this.tint = color
         this.velocity = 2
         this._turns = []

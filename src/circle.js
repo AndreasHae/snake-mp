@@ -10,7 +10,7 @@ class Circle extends Sprite {
     getRadius() {
         return this.width / 2
     }
-    
+
     collidesWithCircle(other) {
         const dx = this.x - other.x
         const dy = this.y - other.y
