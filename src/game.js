@@ -64,6 +64,12 @@ class Game extends Application {
             this.snake.die()
         }
 
+        for (let i = 0; i < this.snake.children.length - 3; i++) {
+            if (this.snake.head.collidesWithCircle(this.snake.children[i])) {
+                this.snake.die()
+            }
+        }
+
         if (this.fruit && this.snake.head.collidesWithCircle(this.fruit)) {
             this.fruit.destroy()
             this.fruit = null
