@@ -6,6 +6,9 @@ import Fruit from './fruit'
 
 import input from './input'
 
+const FIELD_WIDTH = 8
+const FIELD_HEIGHT = 8
+
 class Game extends Application {
     constructor() {
         super({
@@ -25,18 +28,19 @@ class Game extends Application {
     }
 
     init(resources) {
-        const field = new Field(8, 8, resources.ground.texture)
-        this.stage.addChild(field)
-        this.field = field
+        // Inject resources
+        this.createField = (width, height) => new Field(height, width, resources.ground.texture)
+        this.createSnake = (x, y, length, color) => new Snake(x, y, resources.body.texture, resources.eyes.texture, color, length)
+        this.createFruit = (x, y) => new Fruit(x, y, resources.fruit.texture)
+
+        this.field = this.createField(FIELD_WIDTH, FIELD_HEIGHT)
+        this.stage.addChild(this.field)
 
         const color = Math.random() * 0xFFFFFF
-        const snake = new Snake(2, 2, resources.body.texture, resources.eyes.texture, color, 3)
+        this.snake = this.createSnake(2, 2, 3, color)
+        this.stage.addChild(this.snake)
 
-        this.stage.addChild(snake)
-        this.snake = snake
-
-        this.fruit = new Fruit(5, 5, resources.fruit.texture)
-        this.stage.addChild(this.fruit)
+        this.spawnFruit()
 
         this.main()
     }
@@ -63,11 +67,27 @@ class Game extends Application {
         if (this.fruit && this.snake.head.collidesWithCircle(this.fruit)) {
             this.fruit.destroy()
             this.fruit = null
+            this.snake.addBody()
+
+            this.spawnFruit()
         }
 
         this.render()
 
         requestAnimationFrame(this.main.bind(this))
+    }
+
+    spawnFruit() {
+        if (this.fruit) {
+            this.fruit.destroy()
+            this.fruit = null
+        }
+
+        // TODO: Check if newly spawned fruit collides with snake
+        const randomUntil = (limit) => Math.round(Math.random() * limit)
+
+        this.fruit = this.createFruit(randomUntil(FIELD_WIDTH - 1), randomUntil(FIELD_HEIGHT - 1))
+        this.stage.addChild(this.fruit)
     }
 }
 
