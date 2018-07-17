@@ -4,6 +4,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'game.js',
+        sourceMapFilename: 'game.map.js',
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
@@ -28,5 +29,5 @@ module.exports = {
             },
         ],
     },
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
 }
