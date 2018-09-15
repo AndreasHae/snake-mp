@@ -1,4 +1,4 @@
-import { Application } from 'pixi.js'
+import { Application, utils } from 'pixi.js'
 import { directions } from './directions'
 import Field from './field'
 import Snake from './snake'
@@ -14,6 +14,8 @@ class Game extends Application {
             transparent: true,
             antialias: true,
         })
+
+        this.events = new utils.EventEmitter()
 
         this.loader
             .add('body', 'img/body.svg')
@@ -37,6 +39,8 @@ class Game extends Application {
     }
 
     begin() {
+        this.reset()
+
         const color = Math.random() * 0xFFFFFF
         this.snake = this.createSnake(2, 2, 3, color)
         this.stage.addChild(this.snake)
@@ -63,11 +67,13 @@ class Game extends Application {
 
         if (! this.field.encloses(this.snake.head)) {
             this.snake.die()
+            this.events.emit('gameover')
         }
 
         for (let i = 0; i < this.snake.children.length - 3; i++) {
             if (this.snake.head.collidesWithCircle(this.snake.children[i])) {
                 this.snake.die()
+                this.events.emit('gameover')
             }
         }
 
@@ -95,6 +101,18 @@ class Game extends Application {
 
         this.fruit = this.createFruit(randomUntil(this.field.tileWidth - 1), randomUntil(this.field.tileHeight - 1))
         this.stage.addChild(this.fruit)
+    }
+
+    reset() {
+        if (this.snake != null) {
+            this.snake.destroy()
+            this.snake = null
+        }
+
+        if (this.fruit != null) {
+            this.fruit.destroy()
+            this.fruit = null
+        }
     }
 }
 

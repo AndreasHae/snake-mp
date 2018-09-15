@@ -1,17 +1,19 @@
+import { showModal, hideModal } from './modals'
 import Game from './game'
-
-const startModal = document.querySelector('#modal > #start')
-const startBtn = startModal.querySelector('button')
 
 const game = new Game()
 document.body.appendChild(game.view)
 
-startBtn.onclick = () => {
-    const gameStartDelayMs = 200
+const startModal = document.querySelector('#modal > #start')
+const gameOverModal = document.querySelector('#modal > #gameover')
 
-    startModal.classList.add('invisible')
-    setTimeout(() => {
-        startModal.classList.add('hidden')
-        game.begin()
-    }, gameStartDelayMs)
+startModal.querySelector('button').onclick = () => {
+    hideModal(startModal).then(() => game.begin())
 }
+gameOverModal.querySelector('button').onclick = () => {
+    hideModal(gameOverModal).then(() => game.begin())
+}
+
+game.events.on('gameover', () => {
+    showModal(gameOverModal)
+})
