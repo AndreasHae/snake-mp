@@ -2,6 +2,11 @@
   "name": "snake-mp",
   "version": "0.0.1",
   "description": "A multiplayer version of the game Snake",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AndreasHae/snake-mp.git"
+  },
+  "private": true,
   "main": "src/index.js",
   "scripts": {
     "lint:js": "eslint src/ webpack.*.js --cache",
@@ -12,7 +17,7 @@
   "author": "Andreas Hässler <andreas.haessler@outlook.at>",
   "license": "GPL-3.0",
   "dependencies": {
-    "pixi.js": "^4.8.1"
+    "pixi.js": "^4.8.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -21,6 +26,6 @@
     "eslint": "^4.19.1",
     "eslint-loader": "^1.9.0",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack-dev-server": "^2.11.3"
   }
 }
