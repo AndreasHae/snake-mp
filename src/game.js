@@ -6,9 +6,6 @@ import Fruit from './fruit'
 
 import input from './input'
 
-const FIELD_WIDTH = 8
-const FIELD_HEIGHT = 8
-
 class Game extends Application {
     constructor() {
         super({
@@ -33,7 +30,9 @@ class Game extends Application {
         this.createSnake = (x, y, length, color) => new Snake(x, y, resources.body.texture, resources.eyes.texture, color, length)
         this.createFruit = (x, y) => new Fruit(x, y, resources.fruit.texture)
 
-        this.field = this.createField(FIELD_WIDTH, FIELD_HEIGHT)
+        const fieldWidth = Math.floor(this.screen.width / resources.ground.texture.width)
+        const fieldHeight = Math.floor(this.screen.height / resources.ground.texture.height)
+        this.field = this.createField(fieldWidth, fieldHeight)
         this.stage.addChild(this.field)
 
         const color = Math.random() * 0xFFFFFF
@@ -92,7 +91,7 @@ class Game extends Application {
         // TODO: Check if newly spawned fruit collides with snake
         const randomUntil = (limit) => Math.round(Math.random() * limit)
 
-        this.fruit = this.createFruit(randomUntil(FIELD_WIDTH - 1), randomUntil(FIELD_HEIGHT - 1))
+        this.fruit = this.createFruit(randomUntil(this.field.tileWidth - 1), randomUntil(this.field.tileHeight - 1))
         this.stage.addChild(this.fruit)
     }
 }

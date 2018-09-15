@@ -4,6 +4,9 @@ class Field extends Sprite {
     constructor(height, width, cellTexture) {
         super()
 
+        this.tileHeight = height
+        this.tileWidth = width
+
         this.totalHeight = height * cellTexture.height
         this.totalWidth = width * cellTexture.width
 
