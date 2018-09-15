@@ -34,7 +34,9 @@ class Game extends Application {
         const fieldHeight = Math.floor(this.screen.height / resources.ground.texture.height)
         this.field = this.createField(fieldWidth, fieldHeight)
         this.stage.addChild(this.field)
+    }
 
+    begin() {
         const color = Math.random() * 0xFFFFFF
         this.snake = this.createSnake(2, 2, 3, color)
         this.stage.addChild(this.snake)
