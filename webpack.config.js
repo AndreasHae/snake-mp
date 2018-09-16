@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+    mode: 'development',
     entry: './src/index.js',
     output: {
         filename: 'game.js',
@@ -15,7 +16,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env'],
+                        presets: ['@babel/preset-env'],
                     },
                 },
             },
