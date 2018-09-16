@@ -87,7 +87,9 @@ class Game extends Application {
 
         this.render()
 
-        requestAnimationFrame(this.main.bind(this))
+        if (this.snake.alive) {
+            requestAnimationFrame(this.main.bind(this))
+        }
     }
 
     spawnFruit() {
