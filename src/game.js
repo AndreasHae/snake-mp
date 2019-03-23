@@ -99,9 +99,9 @@ class Game extends Application {
         }
 
         // TODO: Check if newly spawned fruit collides with snake
-        const randomUntil = (limit) => Math.round(Math.random() * limit)
+        const randomUpTo = (limit) => Math.random() * limit
 
-        this.fruit = this.createFruit(randomUntil(this.field.tileWidth - 1), randomUntil(this.field.tileHeight - 1))
+        this.fruit = this.createFruit(randomUpTo(this.field.tileWidth - 1), randomUpTo(this.field.tileHeight - 1))
         this.stage.addChild(this.fruit)
     }
 
