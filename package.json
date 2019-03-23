@@ -17,16 +17,16 @@
   "author": "Andreas Hässler <andreas.haessler@outlook.at>",
   "license": "GPL-3.0",
   "dependencies": {
-    "pixi.js": "^4.8.2"
+    "pixi.js": "^4.8.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.1",
-    "@babel/preset-env": "^7.0.0",
-    "babel-loader": "^8.0.2",
-    "eslint": "^5.6.0",
-    "eslint-loader": "^2.1.0",
-    "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8"
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-loader": "^8.0.5",
+    "eslint": "^5.15.3",
+    "eslint-loader": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
   }
 }
