@@ -34,7 +34,14 @@ class Game extends Application {
 
         const fieldWidth = Math.floor(this.screen.width / resources.ground.texture.width)
         const fieldHeight = Math.floor(this.screen.height / resources.ground.texture.height)
+        const fieldOffset = {
+            x: (this.screen.width % resources.ground.texture.width) / 2,
+            y: (this.screen.height % resources.ground.texture.height) / 2,
+        }
+
         this.field = this.createField(fieldWidth, fieldHeight)
+        this.field.x = fieldOffset.x
+        this.field.y = fieldOffset.y
         this.stage.addChild(this.field)
     }
 

@@ -24,10 +24,10 @@ class Field extends Sprite {
     encloses(sprite) {
         const spriteBounds = sprite.getBounds()
 
-        return spriteBounds.top >= 0
-            && spriteBounds.bottom <= this.totalHeight
-            && spriteBounds.left >= 0
-            && spriteBounds.right <= this.totalWidth
+        return spriteBounds.top >= this.y
+            && spriteBounds.bottom <= this.y + this.totalHeight
+            && spriteBounds.left >= this.x
+            && spriteBounds.right <= this.x + this.totalWidth
     }
 }
 
