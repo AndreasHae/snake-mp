@@ -41,8 +41,14 @@ class Game extends Application {
     begin() {
         this.reset()
 
+        const initialLength = 3
         const color = Math.random() * 0xFFFFFF
-        this.snake = this.createSnake(2, 2, 3, color)
+
+        this.snake = this.createSnake(
+            this.field.tileWidth / 2,
+            this.field.tileHeight / 2,
+            initialLength,
+            color)
         this.stage.addChild(this.snake)
 
         this.spawnFruit()
