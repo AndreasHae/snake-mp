@@ -16,6 +16,11 @@ class Game extends Application {
         })
 
         this.events = new utils.EventEmitter()
+        this.events.on('gameover', () => {
+            if (this.score > this.highscore) {
+                this.highscore = this.score
+            }
+        })
 
         this.loader
             .add('body', 'img/body.svg')
@@ -84,11 +89,6 @@ class Game extends Application {
 
         if (! this.field.encloses(this.snake.head)) {
             this.snake.die()
-
-            if (this.score > this.highscore) {
-                this.highscore = this.score
-            }
-
             this.events.emit('gameover')
         }
 
