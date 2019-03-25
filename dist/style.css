@@ -55,7 +55,7 @@ body {
 
 #modal > * {
     background: #f1f1f1;
-    padding: 1em;
+    padding: 1em 3em;
     border-radius: 1em;
     box-shadow: 0px 3px 5px 0px rgba(50, 50, 50, 0.65);
 
@@ -97,6 +97,30 @@ body {
     align-self: flex-start;
 }
 
+
 #modal > #start {
     width: 30em;
+}
+
+/* Scores */
+
+#scores {
+    display: flex;
+    flex-direction: row;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10em;
+}
+
+.score-description {
+    font-weight: bold;
+}
+
+.score-text {
+    font-size: 28pt;
+    line-height: 40%;
 }
