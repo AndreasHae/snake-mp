@@ -39,7 +39,7 @@ class Game extends Application {
             y: (this.screen.height % resources.ground.texture.height) / 2,
         }
 
-        this.highscore = 0
+        this.highscore = localStorage.getItem('highscore') || 0
 
         this.field = this.createField(fieldWidth, fieldHeight)
         this.field.x = fieldOffset.x

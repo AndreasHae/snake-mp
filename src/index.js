@@ -21,4 +21,5 @@ game.events.on('gameover', () => {
     showModal(gameOverModal)
     scoreText.innerHTML = game.score
     highscoreText.innerHTML = game.highscore
+    localStorage.setItem('highscore', game.highscore)
 })
