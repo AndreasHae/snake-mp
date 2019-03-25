@@ -122,11 +122,13 @@ class Game extends Application {
             this.fruit = null
         }
 
-        const randomUpTo = (limit) => Math.random() * limit
+        const randomBetween = (start, end) => start + Math.random() * end
         const collidesWithSnake = (circle) => this.snake.children.filter(bodyPart => bodyPart.collidesWithCircle(circle)).length != 0
-
         do {
-            this.fruit = this.createFruit(randomUpTo(this.field.tileWidth - 1), randomUpTo(this.field.tileHeight - 1))
+            this.fruit = this.createFruit(
+                randomBetween(this.field.x / 100, this.field.x / 100 + this.field.tileWidth - 1),
+                randomBetween(this.field.y / 100, this.field.y / 100 + this.field.tileHeight - 1)
+            )
         }
         while (collidesWithSnake(this.fruit))
 
