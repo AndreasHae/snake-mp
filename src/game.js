@@ -39,6 +39,8 @@ class Game extends Application {
             y: (this.screen.height % resources.ground.texture.height) / 2,
         }
 
+        this.highscore = 0
+
         this.field = this.createField(fieldWidth, fieldHeight)
         this.field.x = fieldOffset.x
         this.field.y = fieldOffset.y
@@ -47,6 +49,8 @@ class Game extends Application {
 
     begin() {
         this.reset()
+
+        this.score = 0
 
         const initialLength = 3
         const color = Math.random() * 0xFFFFFF
@@ -80,6 +84,11 @@ class Game extends Application {
 
         if (! this.field.encloses(this.snake.head)) {
             this.snake.die()
+
+            if (this.score > this.highscore) {
+                this.highscore = this.score
+            }
+
             this.events.emit('gameover')
         }
 
@@ -94,6 +103,8 @@ class Game extends Application {
             this.fruit.destroy()
             this.fruit = null
             this.snake.addBody()
+
+            this.score += 1
 
             this.spawnFruit()
         }
